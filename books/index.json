@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "updated": "2025",
+  "books": [
+    {
+      "id": "408-os",
+      "title": "操作系统基础题册",
+      "subject": "操作系统",
+      "category": "408",
+      "year": 2025,
+      "total_questions": 392,
+      "qtypes_count": 82,
+      "file": "408-os.json"
+    },
+    {
+      "id": "demo-sample",
+      "title": "示例：数据结构入门",
+      "subject": "数据结构",
+      "category": "408",
+      "year": 2025,
+      "total_questions": 5,
+      "qtypes_count": 2,
+      "file": "demo-sample.json"
+    }
+  ]
+}
