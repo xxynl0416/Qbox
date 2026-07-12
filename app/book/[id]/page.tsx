@@ -397,14 +397,19 @@ function QuestionList({
   onNoteUpdate: (qid: string, text: string) => void
 }) {
   // 按章节和题型分组
-  const groups: { chapter: string; qtype: string; questions: Question[] }[] = []
+  const groups: { chapter: string; qtype: string; questions: Question[]; chapterIdx: number }[] = []
   let lastChapter = ''
   let lastQtype = ''
+  let chapterIdx = -1
 
   for (const q of questions) {
-    if (q.chapter !== lastChapter || q.qtype !== lastQtype) {
-      groups.push({ chapter: q.chapter, qtype: q.qtype, questions: [] })
+    if (q.chapter !== lastChapter) {
+      chapterIdx++
       lastChapter = q.chapter
+      lastQtype = ''
+    }
+    if (q.qtype !== lastQtype) {
+      groups.push({ chapter: q.chapter, qtype: q.qtype, questions: [], chapterIdx })
       lastQtype = q.qtype
     }
     groups[groups.length - 1].questions.push(q)
@@ -415,7 +420,7 @@ function QuestionList({
       {groups.map((group, gi) => (
         <section key={gi} className="chapter-section">
           {gi === 0 || groups[gi - 1].chapter !== group.chapter ? (
-            <h2 className="chapter-title">
+            <h2 className="chapter-title" id={`ch_${group.chapterIdx}`}>
               {group.chapter}
               <span className="chapter-meta">
                 {questions.filter(q => q.chapter === group.chapter).length} 题
