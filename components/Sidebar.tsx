@@ -27,7 +27,7 @@ export default function Sidebar({ questions, progress, filter, onFilterChange }:
     { key: 'random20', icon: '◇', label: '随机 20 题', count: '→' },
   ]
 
-  // 按章节分组
+  // 按章节和题型分组
   const chapters: { name: string; qtypes: { name: string; count: number }[] }[] = []
   let lastCh = ''
   for (const q of questions) {
@@ -41,8 +41,8 @@ export default function Sidebar({ questions, progress, filter, onFilterChange }:
     else ch.qtypes.push({ name: q.qtype, count: 1 })
   }
 
-  function scrollToChapter(ci: number) {
-    const el = document.getElementById(`ch_${ci}`)
+  function scrollToId(id: string) {
+    const el = document.getElementById(id)
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
@@ -71,11 +71,22 @@ export default function Sidebar({ questions, progress, filter, onFilterChange }:
           return (
             <div key={ci} className="nav-chapter">
               <a
-                href="#"
-                onClick={(e) => { e.preventDefault(); scrollToChapter(ci) }}
+                href={`#ch_${ci}`}
+                onClick={(e) => { e.preventDefault(); scrollToId(`ch_${ci}`) }}
               >
                 {ch.name} <span className="nav-chapter-meta">{ch.qtypes.length}/{totalQ}</span>
               </a>
+              <div className="nav-qtype">
+                {ch.qtypes.map((qt, qi) => (
+                  <a
+                    key={qi}
+                    href={`#qt_${ci}_${qi}`}
+                    onClick={(e) => { e.preventDefault(); scrollToId(`qt_${ci}_${qi}`) }}
+                  >
+                    {qt.name}
+                  </a>
+                ))}
+              </div>
             </div>
           )
         })}
