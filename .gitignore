@@ -26,6 +26,11 @@ Thumbs.db
 .env.local
 .env*.local
 
+# 题册源文件
+*.docx
+*.pdf
+_tmp/
+
 # Next.js
 .next/
 out/
