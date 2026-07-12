@@ -21,6 +21,21 @@ Thumbs.db
 *.tmp
 *.log
 
-# 用户敏感信息（建议本地保管，不要推）
+# 用户敏感信息
 .env
-*.local
+.env.local
+.env*.local
+
+# Next.js
+.next/
+out/
+node_modules/
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+.vercel
