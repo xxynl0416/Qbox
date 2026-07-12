@@ -41,6 +41,13 @@ export default function Sidebar({ questions, progress, filter, onFilterChange }:
     else ch.qtypes.push({ name: q.qtype, count: 1 })
   }
 
+  function scrollToChapter(ci: number) {
+    const el = document.getElementById(`ch_${ci}`)
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+
   return (
     <aside id="sidebar">
       <h2>筛选</h2>
@@ -63,14 +70,12 @@ export default function Sidebar({ questions, progress, filter, onFilterChange }:
           const totalQ = ch.qtypes.reduce((s, t) => s + t.count, 0)
           return (
             <div key={ci} className="nav-chapter">
-              <a href={`#ch_${ci}`}>
+              <a
+                href="#"
+                onClick={(e) => { e.preventDefault(); scrollToChapter(ci) }}
+              >
                 {ch.name} <span className="nav-chapter-meta">{ch.qtypes.length}/{totalQ}</span>
               </a>
-              <div className="nav-qtype">
-                {ch.qtypes.map((qt, qi) => (
-                  <a key={qi} href={`#qt_${ci}_${qi}`}>{qt.name}</a>
-                ))}
-              </div>
             </div>
           )
         })}
